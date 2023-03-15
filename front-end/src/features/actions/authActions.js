@@ -68,3 +68,32 @@ export const authLogout = createAsyncThunk(
     return response;
   }
 );
+
+export const userforgotPassword = createAsyncThunk(
+  "userforgotPassword/auth/forgotpassword",
+  async (data) => {
+    return instanceApi
+      .post("auth/forgotpassword", data)
+      .then((res) => {
+        // console.log(res.data, "erererer");
+        return res?.data;
+      })
+      .catch((err) => {
+        // console.log(err?.response?.data, "nknknkmnjjnjn");
+        throw new Error(err?.response?.data);
+      });
+  }
+);
+
+export const userUpdatePassword = createAsyncThunk(
+  "userUpdatePassword/auth/updatepassword",
+  async ({ id, password }) => {
+  //  console.log(id, password, "dsdsdsdsd");
+    const response = await instanceApi.post("auth/updatepassword", {
+      id,
+      password,
+    });
+    console.log(response.data, "updatedataresponse");
+    return response.data;
+  }
+);

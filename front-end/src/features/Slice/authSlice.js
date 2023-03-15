@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   resendOtp,
+  userforgotPassword,
   userLogin,
   userOtpVerify,
   userRegister,
   userRegisterName,
+  userUpdatePassword,
 } from "../actions/authActions";
 
 // sample
@@ -19,6 +21,8 @@ const initialState = {
   loginData: [],
   resendOtpMsg: "",
   loginErrMsg: "",
+  updateMessage: "",
+  forgotMessage: "",
 };
 
 const authSlice = createSlice({
@@ -77,6 +81,26 @@ const authSlice = createSlice({
       // console.log(action.error, "rejasasasected");
       console.log(action.message, "dsdsdsdsdsd");
       state.loginErrMsg = action.error.message;
+    },
+    [userforgotPassword?.pending]: (state) => {
+      console.log("pending");
+    },
+    [userforgotPassword?.fulfilled]: (state, action) => {
+      console.log(action.payload, "fulfill");
+      state.forgotMessage = action.payload;
+    },
+    [userforgotPassword?.rejected]: (state, action) => {
+      console.log(action, "dsdsdsdsdsd");
+    },
+    [userUpdatePassword?.pending]: (state) => {
+      console.log("pending");
+    },
+    [userUpdatePassword?.fulfilled]: (state, action) => {
+      console.log(action.payload, "fulfill");
+      state.updateMessage = action.payload;
+    },
+    [userUpdatePassword?.rejected]: (state, action) => {
+      console.log(action.payload, "dsdsdsdsdsd");
     },
   },
 });

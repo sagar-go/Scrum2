@@ -1,48 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Field, Form } from "react-final-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { userLogin } from "../features/actions/authActions";
 
 const Login = () => {
+  // const [inputData, setInputData] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userLoginDetails = useSelector((state) => state?.authData?.loginData);
-  const errorMessage = useSelector((state) => state?.authData?.loginErrMsg);
+ // const userLoginDetails = useSelector((state) => state?.authData?.loginData);
+ // const errorMessage = useSelector((state) => state?.authData?.loginErrMsg);
 
   function onSubmit(values) {
-    dispatch(userLogin(values)).then(item=> {
-     if(!item.payload.success){
-      toast.error(`${item?.payload?.message}`, {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+    dispatch(userLogin(values)).then((item) => {
+      if (!item.payload.success) {
+        toast.error(`${item?.payload?.message}`, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
         });
-        if(item?.payload?.id){
-          navigate(`/otpverify/${item?.payload?.id}`)
+        if (item?.payload?.id) {
+          navigate(`/otpverify/${item?.payload?.id}`);
         }
-     }else{
-      toast.success(`${item?.payload?.message}`, {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+      } else {
+        toast.success(`${item?.payload?.message}`, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
         });
         localStorage.setItem("token", item?.payload?.token);
         // navigate('/home')
-        window.location.href='/home'
-     }
+        window.location.href = "/home";
+      }
     });
 
     // if (userLoginDetails?.success === true) {
@@ -55,11 +56,12 @@ const Login = () => {
     //   //}
     // }
   }
+  // const forgotMessage = useSelector((state) => state?.authData?.forgotMessage);
 
   return (
-    <div>
+    <div className="d-flex flex-column  align-items-center">
       <h3>Login</h3>
-      <div>
+      <div className="d-flex flex-column content">
         <Form
           onSubmit={onSubmit}
           validate={(values) => {
@@ -97,10 +99,19 @@ const Login = () => {
                   )}
                 </Field>
               </div>
-              <button type="submit">Login</button>
+              <div className="">
+                <button type="submit" className="w-100 mt-3">
+                  Login
+                </button>
+              </div>
             </form>
           )}
         />
+        <div className="">
+          <button className="w-100 mt-3" onClick={() => navigate("/email")}>
+            forgot password
+          </button>
+        </div>
       </div>
       <ToastContainer />
     </div>

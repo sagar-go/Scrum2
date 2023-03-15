@@ -5,10 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { resendOtp, userOtpVerify } from "../features/actions/authActions";
 import OtpInput from "react18-input-otp";
+import OtpTimer from "otp-timer";
 
 const OtpVerify = () => {
-  const [timeLeft, setTimeLeft] = useState(null);
-
   let { id } = useParams();
 
   const form = useRef();
@@ -19,28 +18,6 @@ const OtpVerify = () => {
   const getOtp = useSelector((state) => state?.authData?.otpMessage);
 
   const otpConfirm = useSelector((state) => state?.authData?.otpConfirmation);
-
-  // useEffect(() => {
-  //   if (getOtp?.success === true) {
-  //     toast.success(getOtp?.message);
-  //   }
-  // }, [getOtp]);
-
-  useEffect(() => {
-    if (timeLeft === 0) {
-      console.log("TIME LEFT IS 0");
-      setTimeLeft(null);
-    }
-    if (!timeLeft) return;
-    const intervalId = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
-    }, 1000);
-    return () => clearInterval(intervalId);
-  }, [timeLeft]);
-
-  useEffect(() => {
-    setTimeLeft(30);
-  }, []);
 
   const onSubmit = (values) => {
     // if (getOtp?.otp === values.otp || id === getOtp?.id) {
@@ -65,53 +42,51 @@ const OtpVerify = () => {
     //   console.log("otp not match");
     // }
     dispatch(
-          userOtpVerify({
-            otp: values?.otp,
-            id: id,
-          })).then(ele=> {
-            if(!ele.payload.success){
-              toast.error(`${ele?.payload?.message}`, {
-                position: "top-right",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                });
-            }else{
-              
-        toast.success(`${ele?.payload?.message}`, {
-          position: "top-right",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+      userOtpVerify({
+        otp: values?.otp,
+        id: id,
+      })
+    )
+      .then((ele) => {
+        if (!ele.payload.success) {
+          toast.error(`${ele?.payload?.message}`, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
           });
-          navigate('/login')
-            }
-          
-          } ).catch(ele=>{
-            console.log(ele,'eeeeewww22222222')
-          }) 
-  
+        } else {
+          toast.success(`${ele?.payload?.message}`, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          navigate("/login");
         }
+      })
+      .catch((ele) => {
+        console.log(ele, "eeeeewww22222222");
+      });
+  };
 
   function onSubmit2() {
-    setTimeLeft(30);
+    // setTimeLeft(30);
 
     dispatch(resendOtp({ id: id }));
-    // .then((e) => console.log(e, "bbb"))
-    // .catch((err) => console.log(err, "error"));
   }
 
   return (
     <div>
-      <div>
+      <div className="d-flex justify-content-center flex-column  align-items-center">
         <h2>OTP Verification</h2>
         <Form
           onSubmit={onSubmit}
@@ -124,19 +99,26 @@ const OtpVerify = () => {
                     {/* <input {...input} type="number" placeholder="otp" /> */}
                     <div className="input-otp">
                       <OtpInput className="otp" {...input} numInputs={4} />
+                      {meta.error && meta.touched && <span>{meta.error}</span>}
                     </div>
-                    {meta.error && meta.touched && <span>{meta.error}</span>}
                   </div>
                 )}
               </Field>
-
-              <button type="submit"> send</button>
+              <div className="mx-auto w-60 mb-1">
+                <button className="w-100" type="submit">
+                  {" "}
+                  send
+                </button>
+              </div>
             </form>
           )}
         />
 
-        {!timeLeft && <button onClick={() => onSubmit2()}>Resend otp</button>}
-        <div> {<h3>{timeLeft}</h3>}</div>
+        {/* {!timeLeft && <button onClick={() => onSubmit2()}>Resend otp</button>} */}
+        <div>
+          {/* {<h3>{timeLeft}</h3>} */}
+          <OtpTimer seconds={30} minutes={0} resend={() => onSubmit2()} />
+        </div>
       </div>
       {/* <ToastContainer /> */}
     </div>

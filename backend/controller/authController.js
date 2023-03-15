@@ -241,6 +241,11 @@ const forgotPassword = async (req, res) => {
     email: req.body.email,
   });
 
+  if (!loggedUser) {
+    // return res.status(400).send({ message: "User not found", success: false });
+    return res.status(400).send("User not found");
+  }
+
   const mailOptions = {
     from: "sagarrbarthwal@gmail.com",
     to: loggedUser.email,
@@ -265,10 +270,6 @@ const updatePassword = async (req, res) => {
   const loggedUser = await authUser.findById({
     _id: req.body.id,
   });
-
-  if (!loggedUser) {
-    return res.status(400).send({ message: "User not found", success: false });
-  }
 
   const salt = await bcrypt.genSalt(5); //complexity of salt generation
   const hashpassword = await bcrypt.hash(req.body.password, salt);
