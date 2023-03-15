@@ -2,14 +2,6 @@ const mongoose = require("mongoose");
 
 const recordsSchema = new mongoose.Schema({
   manager:
-    // name: {
-    //   type: String,
-    //   default
-    // },
-    // id: {
-    //   type: String,
-    // },
-
     { type: { name: String, id: String }, default: null },
   status: {
     type: String,

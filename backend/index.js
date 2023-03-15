@@ -17,5 +17,5 @@ mongoose
   .then((e) => console.log("CONNECTED TO SERVER"));
 
 app.use("/auth", authRoute);
-app.use("/records", recordsRoute);
+app.use("/task", recordsRoute);
 app.listen(4000, (req, res) => console.log("SERVER IS RUNNING !!!!!!!!!!!!"));
