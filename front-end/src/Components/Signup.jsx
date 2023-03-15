@@ -33,6 +33,19 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+   // useEffect(() => {
+  //   if (timeLeft === 0) {
+  //     console.log("TIME LEFT IS 0");
+  //     setTimeLeft(null);
+  //   }
+  //   if (!timeLeft) return;
+  //   const intervalId = setInterval(() => {
+  //     setTimeLeft(timeLeft - 1);
+  //   }, 1000);
+  //   return () => clearInterval(intervalId);
+  // }, [timeLeft]);
+
+
   // useEffect(() => {
   //   dispatch(userRegisterName({ role: "manager" }));
   // }, []);
