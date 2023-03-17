@@ -4,6 +4,7 @@ import {
   userforgotPassword,
   userLogin,
   userOtpVerify,
+  userRecords,
   userRegister,
   userRegisterName,
   userUpdatePassword,
@@ -23,6 +24,8 @@ const initialState = {
   loginErrMsg: "",
   updateMessage: "",
   forgotMessage: "",
+  name: null,
+  userRecordDetails: []
 };
 
 const authSlice = createSlice({
@@ -76,6 +79,7 @@ const authSlice = createSlice({
     [userLogin?.fulfilled]: (state, action) => {
       console.log(action.payload, "fulfillasdadasdeduser");
       state.loginData = action.payload;
+      state.name = action.payload.role;
     },
     [userLogin?.rejected]: (state, action) => {
       // console.log(action.error, "rejasasasected");
@@ -100,6 +104,16 @@ const authSlice = createSlice({
       state.updateMessage = action.payload;
     },
     [userUpdatePassword?.rejected]: (state, action) => {
+      console.log(action.payload, "dsdsdsdsdsd");
+    },
+    [userRecords?.pending]: (state) => {
+      console.log("pending");
+    },
+    [userRecords?.fulfilled]: (state, action) => {
+      console.log(action.payload, "fulfill");
+      state.userRecordDetails = action.payload;
+    },
+    [userRecords?.rejected]: (state, action) => {
       console.log(action.payload, "dsdsdsdsdsd");
     },
   },
