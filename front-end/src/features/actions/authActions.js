@@ -34,22 +34,10 @@ export const userLogin = createAsyncThunk(
   "userLogin/auth/login",
   async (data) => {
     // const response = await
-    return (
-      instanceApi
-        .post("auth/login", data)
-        // .then((res) => console.log(res.data, "vvvvvvvvvv"))
-        .then((response) => {
-          console.log(response.data, "vvvvvvvvvv");
-          return response?.data;
-        })
-        .catch((error) => {
-          console.log(error?.response?.data, "ewwerwewrrw");
-          throw new Error(error?.response?.data, console.log("errrrrrrrrr"));
-        })
-    );
+    const res = await instanceApi.post("auth/login", data);
 
-    // console.log(error.response.data, "sdsdsdsd");
-    // return response.data;
+    console.log(res, "sdsdsdsd");
+    return res.data;
   }
 );
 export const userRegisterName = createAsyncThunk(
@@ -88,7 +76,7 @@ export const userforgotPassword = createAsyncThunk(
 export const userUpdatePassword = createAsyncThunk(
   "userUpdatePassword/auth/updatepassword",
   async ({ id, password }) => {
-  //  console.log(id, password, "dsdsdsdsd");
+    //  console.log(id, password, "dsdsdsdsd");
     const response = await instanceApi.post("auth/updatepassword", {
       id,
       password,
@@ -97,3 +85,14 @@ export const userUpdatePassword = createAsyncThunk(
     return response.data;
   }
 );
+
+export const userRecords = createAsyncThunk("userRecords/task/getrecords", async() => {
+  const response = await instanceApi.get("task/getrecords")
+  console.log(response, "jmhngbfvcsx")
+  return response
+})
+
+export const userTaskCreate= createAsyncThunk("userTaskCreate/task/create", async(data) => {
+  const response = await instanceApi.post("task/create", data)
+  console.log(response, "uiytrdsdfghjkhgfd")
+})

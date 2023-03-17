@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, Form } from "react-final-form";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { userLogin } from "../features/actions/authActions";
@@ -10,8 +10,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
- // const userLoginDetails = useSelector((state) => state?.authData?.loginData);
- // const errorMessage = useSelector((state) => state?.authData?.loginErrMsg);
+  // const userLoginDetails = useSelector((state) => state?.authData?.loginData);
+  // const errorMessage = useSelector((state) => state?.authData?.loginErrMsg);
 
   function onSubmit(values) {
     dispatch(userLogin(values)).then((item) => {
@@ -41,10 +41,10 @@ const Login = () => {
           theme: "light",
         });
         localStorage.setItem("token", item?.payload?.token);
-        // navigate('/home')
-        window.location.href = "/home";
+        // navigate("/home");
+        // window.location.href = "/home";
       }
-    });
+    }).then(e => navigate("/home"))
 
     // if (userLoginDetails?.success === true) {
     //   localStorage.setItem("auth-token", userLoginDetails?.token);

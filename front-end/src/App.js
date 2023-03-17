@@ -9,6 +9,7 @@ import { useState } from "react";
 import Protected from "./Components/Protected";
 import ResetPassword from "./Components/ResetPassword";
 import Email from "./Components/Email";
+import ModalShow from "./Components/ModalShow";
 
 function App() {
   // const [isLoggedIn, setisLoggedIn] = useState(null);
@@ -34,6 +35,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/resetpassword/:id" element={<ResetPassword />} />
           <Route path="/email" element={<Email />} />
+          <Route path="/modalshow" element={<ModalShow />} />
           {/* <Route
             path="/home"
             element={
