@@ -36,6 +36,7 @@ function App() {
           <Route path="/resetpassword/:id" element={<ResetPassword />} />
           <Route path="/email" element={<Email />} />
           <Route path="/modalshow" element={<ModalShow />} />
+        
           {/* <Route
             path="/home"
             element={

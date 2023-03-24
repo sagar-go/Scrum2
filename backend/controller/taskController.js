@@ -56,22 +56,22 @@ const getRecords = async (req, res) => {
   console.log(loggedUser, "loggggggggggggggggggggedddddddddddddddd");
 
   if (loggedUser.role === "manager") {
-    console.log('ifffffffffffff')
+    console.log("ifffffffffffff");
     // myUser = await taskDB.find({ "manager.id": loggedUser._id });
 
     myUser = await taskDB.aggregate([
-        // { $match: { $or: [{ status: "completed" }, { status: "inProgress" }] } },
-      // { "$unwind": "$status" }, 
+      // { $match: { $or: [{ status: "completed" }, { status: "inProgress" }] } },
+      // { "$unwind": "$status" },
       {
         $group: {
           _id: "$status",
-          data: { $push:"$$ROOT"  },
+          data: { $push: "$$ROOT" },
         },
       },
       //   { $unwind: "$taskDB" },
     ]);
   } else {
-    console.log('elseeeeeeeeeeeeeeeeee')
+    console.log("elseeeeeeeeeeeeeeeeee");
 
     // myUser = await taskDB.find({ "dev.id": loggedUser._id });
     myUser = await taskDB.aggregate([
@@ -81,11 +81,14 @@ const getRecords = async (req, res) => {
       {
         $group: {
           _id: "$status",
-          data: { $push:"$$ROOT"  },
+          data: { $push: "$$ROOT" },
         },
       },
     ]);
   }
+  console.log("pppppp", myUser);
+  let obj ={}
+  
 
   return res.status(200).send({ data: myUser, success: true });
 };

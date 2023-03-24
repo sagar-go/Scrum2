@@ -25,7 +25,6 @@ const initialState = {
   updateMessage: "",
   forgotMessage: "",
   name: null,
-  userRecordDetails: []
 };
 
 const authSlice = createSlice({
@@ -104,16 +103,6 @@ const authSlice = createSlice({
       state.updateMessage = action.payload;
     },
     [userUpdatePassword?.rejected]: (state, action) => {
-      console.log(action.payload, "dsdsdsdsdsd");
-    },
-    [userRecords?.pending]: (state) => {
-      console.log("pending");
-    },
-    [userRecords?.fulfilled]: (state, action) => {
-      console.log(action.payload, "fulfill");
-      state.userRecordDetails = action.payload;
-    },
-    [userRecords?.rejected]: (state, action) => {
       console.log(action.payload, "dsdsdsdsdsd");
     },
   },

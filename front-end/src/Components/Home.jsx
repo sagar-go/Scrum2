@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { authLogout, userRecords } from "../features/actions/authActions";
+import { authLogout } from "../features/actions/authActions";
+//import { userRecords } from "../features/actions/taskActions";
 import { getToken, logOut } from "../utils/util";
 import ModalShow from "./ModalShow";
 
@@ -11,9 +12,9 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(userRecords());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userRecords())
+  // }, []);
 
   const name = useSelector((e) => e.authData.name);
   console.log(name, "ddddddddddddddddddddd");
@@ -43,10 +44,10 @@ const Home = () => {
       </div>
       <br></br>
       <div>
-        <button onClick={() => setShow(!show)}>+ Add User</button>
+        <button onClick={() =>navigate('/modalshow')}>+ Add User</button>
       </div>
 
-      <div>{show && <ModalShow />}</div>
+      {/* <div>{show && <ModalShow />}</div> */}
     </div>
   );
 };

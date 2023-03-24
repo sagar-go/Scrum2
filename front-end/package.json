@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^3.10.0",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -15,6 +17,7 @@
     "final-form": "^4.20.9",
     "otp-timer": "^1.1.5",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-final-form": "^6.5.9",
@@ -27,6 +30,7 @@
     "react18-input-otp": "^1.1.3",
     "redux": "^4.2.1",
     "use-router": "^0.4.2",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
