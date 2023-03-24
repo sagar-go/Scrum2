@@ -63,11 +63,11 @@ export const userforgotPassword = createAsyncThunk(
     return instanceApi
       .post("auth/forgotpassword", data)
       .then((res) => {
-        // console.log(res.data, "erererer");
+        console.log(res.data, "erererer");
         return res?.data;
       })
       .catch((err) => {
-        // console.log(err?.response?.data, "nknknkmnjjnjn");
+         console.log(err?.response?.data, "nknknkmnjjnjn");
         throw new Error(err?.response?.data);
       });
   }
@@ -86,13 +86,3 @@ export const userUpdatePassword = createAsyncThunk(
   }
 );
 
-export const userRecords = createAsyncThunk("userRecords/task/getrecords", async() => {
-  const response = await instanceApi.get("task/getrecords")
-  console.log(response, "jmhngbfvcsx")
-  return response
-})
-
-export const userTaskCreate= createAsyncThunk("userTaskCreate/task/create", async(data) => {
-  const response = await instanceApi.post("task/create", data)
-  console.log(response, "uiytrdsdfghjkhgfd")
-})
